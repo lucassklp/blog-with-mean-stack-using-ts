@@ -1,17 +1,12 @@
 import express from 'express';
+import { config } from './configs/config'
 
 const app = express();
-const port = 3000;
 
-app.get('/', (req, res) => {
-  res.send({
-      _id: "123",
-  });
-});
-
-app.listen(port, err => {
+app.listen(config.port, err => {
   if (err) {
     return console.error(err);
   }
-  return console.log(`Server is listening on ${port}`);
+  console.log(`Using environment "${config.environmentName}"`)
+  console.log(`Server is listening on ${config.port}`);
 });
