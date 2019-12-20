@@ -1,17 +1,27 @@
+import { IConfig } from "./configs/config";
+import { Container } from "inversify";
 import express from 'express';
-import { config } from './configs/config'
 
-const app = express();
+export class App {
+    constructor(private config: IConfig){
 
-app.use('/healthcheck', (req, res) => {
-  res.status(200).json({ uptime: process.uptime() });
-});
+    }
 
+    public configureServices(container: Container){
 
-app.listen(config.port, err => {
-  if (err) {
-    return console.error(err);
-  }
-  console.log(`Using environment "${config.environmentName}"`)
-  console.log(`Server is listening on ${config.port}`);
-});
+    }
+
+    public initialize(server: express.Express){
+        server.use('/healthcheck', (req, res) => {
+            res.status(200).json({ uptime: process.uptime() });
+          });
+          
+          server.listen(this.config.port, err => {
+            if (err) {
+              return console.error(err);
+            }
+            console.log(`Using environment "${this.config.environmentName}"`)
+            console.log(`Server is listening on ${this.config.port}`);
+          });
+    }
+}
