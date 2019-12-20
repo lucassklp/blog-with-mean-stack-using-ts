@@ -3,6 +3,11 @@ import { config } from './configs/config'
 
 const app = express();
 
+app.use('/healthcheck', (req, res) => {
+  res.status(200).json({ uptime: process.uptime() });
+});
+
+
 app.listen(config.port, err => {
   if (err) {
     return console.error(err);
