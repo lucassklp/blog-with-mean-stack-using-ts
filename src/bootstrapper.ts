@@ -1,9 +1,10 @@
-import express from 'express';
-import { config } from './configs/config'
 import { Container } from "inversify";
-import { App } from './app';
+import "reflect-metadata";
+import { App } from "./app";
+import { config } from './configs/config'
+import "./controllers.module";
 
 const container = new Container();
-const app = new App(config);
-app.configureServices(container);
-app.initialize(express())
+const app = new App(config, container);
+app.configureServices();
+app.initialize();

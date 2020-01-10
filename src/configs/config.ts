@@ -1,13 +1,11 @@
-import fs from "fs"
+import fs from "fs";
 
-export type IConfig = {
+export interface IConfig {
     environmentName: string,
-    port: number
-} 
+    port: number,
+}
 
-let environment = process.env.NODE_ENV || "development";
-let fileName = `${environment}${environment == "" ? "" : "-"}config.json`;
+const environment = process.env.NODE_ENV || "development";
+const fileName = `${environment}${environment == "" ? "" : "-"}config.json`;
 
-export const config = JSON.parse(fs.readFileSync(`${__dirname}/${fileName}`, 'utf-8')) as IConfig;
-
-
+export const config = JSON.parse(fs.readFileSync(`${__dirname}/${fileName}`, "utf-8")) as IConfig;
