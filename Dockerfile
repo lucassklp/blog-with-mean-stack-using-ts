@@ -1,6 +1,9 @@
 FROM node:12.14.0-stretch-slim
 
-COPY /src .
+WORKDIR /src
+COPY . .
+RUN ls
 RUN npm install
 RUN npm run build
-ENTRYPOINT [ "node", "dist/bootstrap.js" ]
+COPY ./src/configs ./dist/configs
+ENTRYPOINT [ "node", "dist/bootstrapper.js" ]
